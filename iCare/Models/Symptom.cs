@@ -28,6 +28,7 @@ namespace iCare.Models
         public DateTime DateCreated { get; set; }
 
         public int?  AppointmentId { get; set; }
+        public Appointment appointment { get; set; }
 
         [Required]
         public string UserId { get; set; }

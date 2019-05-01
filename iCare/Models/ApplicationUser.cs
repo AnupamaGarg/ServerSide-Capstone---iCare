@@ -1,11 +1,13 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace iCare.Models
 {
-    public class ApplicationUser
+    public class ApplicationUser : IdentityUser
     {
         [Required]
         [Display(Name = "First Name")]
@@ -15,8 +17,7 @@ namespace iCare.Models
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
-        [Required]
-        public string StreetAddress { get; set; }
+       
 
         public virtual ICollection<Appointment> Appointments { get; set; }
 

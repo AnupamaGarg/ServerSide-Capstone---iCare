@@ -24,8 +24,8 @@ namespace iCare.Models
 
         [Required]
         [DataType(DataType.Date)]
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public DateTime DateCreated { get; set; }
+       
+        public DateTime AppointmentDate { get; set; }
 
         [Required]
         [StringLength(100)]

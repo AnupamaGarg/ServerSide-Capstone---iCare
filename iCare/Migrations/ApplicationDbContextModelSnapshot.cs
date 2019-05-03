@@ -192,9 +192,9 @@ namespace iCare.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "a476b62d-fc24-41d8-9601-3847f3b5507c",
+                            Id = "ef5044c3-d75b-4d75-96c5-8fb68b811d2c",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c4bf4ce1-db44-4dfb-86d3-ebd401fd5fd2",
+                            ConcurrencyStamp = "19ade2f7-9407-485c-869c-a907ca891fd8",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             FirstName = "admin",
@@ -202,7 +202,7 @@ namespace iCare.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFp8xu1MHxHVPihTIs/Z6Gc+I/tCEglUatcwzmMmrJSN8tD+yqiVbLHlqgUa2IIMAA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGrvFGt0jxnY2Q/DR4MB9qRb0rBtFS77b1pjd0BVT86CEdsZkIVJwYQTxVtGR2zfjA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "2b43d80c-25d9-4820-a424-b53a44531427",
                             TwoFactorEnabled = false,
@@ -221,10 +221,6 @@ namespace iCare.Migrations
                         .HasMaxLength(100);
 
                     b.Property<DateTime>("AppointmentDate");
-
-                    b.Property<string>("AppointmentReason")
-                        .IsRequired()
-                        .HasMaxLength(100);
 
                     b.Property<string>("DoctorName")
                         .IsRequired()
@@ -253,11 +249,10 @@ namespace iCare.Migrations
                             AppointmentID = 1,
                             Address = "123 street Franklin TN",
                             AppointmentDate = new DateTime(2019, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            AppointmentReason = "Head Aches",
                             DoctorName = "Dr Dodge",
                             DoctorsInstructions = "Take Medicine",
                             Phone = "111-337-222",
-                            UserId = "a476b62d-fc24-41d8-9601-3847f3b5507c",
+                            UserId = "ef5044c3-d75b-4d75-96c5-8fb68b811d2c",
                             Visited = false
                         });
                 });
@@ -304,7 +299,7 @@ namespace iCare.Migrations
                             Detail = "In the morning when i woke up was feeling very low in energy and had an head ache",
                             Severity = 6,
                             SymptomDescription = "Feeling Fatique and dizzy",
-                            UserId = "a476b62d-fc24-41d8-9601-3847f3b5507c"
+                            UserId = "ef5044c3-d75b-4d75-96c5-8fb68b811d2c"
                         });
                 });
 
@@ -364,7 +359,7 @@ namespace iCare.Migrations
             modelBuilder.Entity("iCare.Models.Symptom", b =>
                 {
                     b.HasOne("iCare.Models.Appointment", "appointment")
-                        .WithMany()
+                        .WithMany("SymptomsToDiscuss")
                         .HasForeignKey("AppointmentId");
 
                     b.HasOne("iCare.Models.ApplicationUser", "User")

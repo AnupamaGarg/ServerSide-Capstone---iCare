@@ -27,9 +27,9 @@ namespace iCare.Models
        
         public DateTime AppointmentDate { get; set; }
 
-        [Required]
+        /*[Required]
         [StringLength(100)]
-        public string AppointmentReason { get; set; }
+        public string AppointmentReason { get; set; }*/
 
         [Required]
         [StringLength(100)]
@@ -39,7 +39,16 @@ namespace iCare.Models
         
         public Boolean Visited { get; set; }
 
+        [Display(Name = "AssociatedAppointment")]
+        public string DoctorAndAppointmentDate
+        {
+            get
+            {
+                return $"{DoctorName} on {AppointmentDate}";
+            }
+        }
 
+       
 
         [Required]
         public string UserId { get; set; }
@@ -47,6 +56,8 @@ namespace iCare.Models
         [Required]
         public ApplicationUser User { get; set; }
 
+        
+        public virtual ICollection<Symptom> SymptomsToDiscuss { get; set; }
     }
 }
 

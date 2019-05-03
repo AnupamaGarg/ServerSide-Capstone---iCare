@@ -55,7 +55,6 @@ namespace iCare.Data
                 Address = "123 street Franklin TN",
                 Phone= "111-337-222",
                 AppointmentDate = DateTime.Parse("2019-09-01"),
-                AppointmentReason = "Head Aches",
                 DoctorsInstructions = "Take Medicine",
                 Visited = false
             });

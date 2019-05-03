@@ -27,8 +27,13 @@ namespace iCare.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime DateCreated { get; set; }
 
+        [Display(Name = "Select from Upcoming Appointments")]
         public int?  AppointmentId { get; set; }
+
+        [Display(Name = "Associated Appointment")]
         public Appointment appointment { get; set; }
+
+
 
         [Required]
         public string UserId { get; set; }

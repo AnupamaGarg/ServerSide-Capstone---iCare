@@ -63,7 +63,7 @@ namespace iCare.Controllers
         public IActionResult Create()
         {
             ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id");
-            ViewData["AppointmentId"] = new SelectList(_context.Appointments, "AppointmentID", "Address");
+            ViewData["AppointmentId"] = new SelectList(_context.Appointments, "AppointmentID", "DoctorAndAppointmentDate");
             return View();
         }
 
@@ -86,7 +86,7 @@ namespace iCare.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", symptom.UserId);
-            ViewData["AppointmentId"] = new SelectList(_context.Appointments, "AppointmentID", "Address", symptom.AppointmentId);
+            ViewData["AppointmentId"] = new SelectList(_context.Appointments, "AppointmentID", "DoctorAndAppointmentDate", symptom.AppointmentId);
             return View(symptom);
         }
 
@@ -104,7 +104,7 @@ namespace iCare.Controllers
                 return NotFound();
             }
             ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", symptom.UserId);
-            ViewData["AppointmentId"] = new SelectList(_context.Appointments, "AppointmentID", "Address", symptom.AppointmentId);
+            ViewData["AppointmentId"] = new SelectList(_context.Appointments, "AppointmentID", "DoctorAndAppointmentDate", symptom.AppointmentId);
             return View(symptom);
         }
 
@@ -141,7 +141,7 @@ namespace iCare.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", symptom.UserId);
-            ViewData["AppointmentId"] = new SelectList(_context.Appointments, "AppointmentID", "Address", symptom.AppointmentId);
+            ViewData["AppointmentId"] = new SelectList(_context.Appointments, "AppointmentID", "DoctorAndAppointmentDate", symptom.AppointmentId);
             return View(symptom);
         }
 

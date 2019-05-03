@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace iCare.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class AddedListForSymptoms : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -80,7 +80,6 @@ namespace iCare.Migrations
                     Address = table.Column<string>(maxLength: 100, nullable: false),
                     Phone = table.Column<string>(nullable: true),
                     AppointmentDate = table.Column<DateTime>(nullable: false),
-                    AppointmentReason = table.Column<string>(maxLength: 100, nullable: false),
                     DoctorsInstructions = table.Column<string>(maxLength: 100, nullable: false),
                     Visited = table.Column<bool>(nullable: false),
                     UserId = table.Column<string>(nullable: false)
@@ -214,17 +213,17 @@ namespace iCare.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "a476b62d-fc24-41d8-9601-3847f3b5507c", 0, "c4bf4ce1-db44-4dfb-86d3-ebd401fd5fd2", "admin@admin.com", true, "admin", "admin", false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEFp8xu1MHxHVPihTIs/Z6Gc+I/tCEglUatcwzmMmrJSN8tD+yqiVbLHlqgUa2IIMAA==", null, false, "2b43d80c-25d9-4820-a424-b53a44531427", false, "admin@admin.com" });
+                values: new object[] { "ef5044c3-d75b-4d75-96c5-8fb68b811d2c", 0, "19ade2f7-9407-485c-869c-a907ca891fd8", "admin@admin.com", true, "admin", "admin", false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEGrvFGt0jxnY2Q/DR4MB9qRb0rBtFS77b1pjd0BVT86CEdsZkIVJwYQTxVtGR2zfjA==", null, false, "2b43d80c-25d9-4820-a424-b53a44531427", false, "admin@admin.com" });
 
             migrationBuilder.InsertData(
                 table: "Appointments",
-                columns: new[] { "AppointmentID", "Address", "AppointmentDate", "AppointmentReason", "DoctorName", "DoctorsInstructions", "Phone", "UserId", "Visited" },
-                values: new object[] { 1, "123 street Franklin TN", new DateTime(2019, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Head Aches", "Dr Dodge", "Take Medicine", "111-337-222", "a476b62d-fc24-41d8-9601-3847f3b5507c", false });
+                columns: new[] { "AppointmentID", "Address", "AppointmentDate", "DoctorName", "DoctorsInstructions", "Phone", "UserId", "Visited" },
+                values: new object[] { 1, "123 street Franklin TN", new DateTime(2019, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Dr Dodge", "Take Medicine", "111-337-222", "ef5044c3-d75b-4d75-96c5-8fb68b811d2c", false });
 
             migrationBuilder.InsertData(
                 table: "Symptoms",
                 columns: new[] { "SymptomID", "AppointmentId", "Detail", "Severity", "SymptomDescription", "UserId" },
-                values: new object[] { 1, 1, "In the morning when i woke up was feeling very low in energy and had an head ache", 6, "Feeling Fatique and dizzy", "a476b62d-fc24-41d8-9601-3847f3b5507c" });
+                values: new object[] { 1, 1, "In the morning when i woke up was feeling very low in energy and had an head ache", 6, "Feeling Fatique and dizzy", "ef5044c3-d75b-4d75-96c5-8fb68b811d2c" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Appointments_UserId",

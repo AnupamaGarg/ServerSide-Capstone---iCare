@@ -9,6 +9,7 @@ using iCare.Data;
 using iCare.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using iCare.Models.ViewModels;
 
 namespace iCare.Controllers
 {
@@ -62,7 +63,11 @@ namespace iCare.Controllers
         public IActionResult Create()
         {
             ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id");
-            return View();
+
+            var vm = new AppointmentWithSymptomListViewModel();
+            ApplicationDbContext applicationDbContext = _context;
+
+           return View(vm);
         }
 
         // POST: Appointments/Create
@@ -70,7 +75,7 @@ namespace iCare.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AppointmentID,DoctorName,Address,Phone,AppointmentDate,AppointmentReason,DoctorsInstructions,Visited,UserId")] Appointment appointment)
+        public async Task<IActionResult> Create(AppointmentWithSymptomListViewModel appointmentWithSymptomListViewModel)
         {
             ModelState.Remove("User");
             ModelState.Remove("UserId");
@@ -78,13 +83,13 @@ namespace iCare.Controllers
             if (ModelState.IsValid)
             {
                 var user = await _userManager.GetUserAsync(HttpContext.User);
-                appointment.UserId = user.Id;
-                _context.Add(appointment);
+                appointmentWithSymptomListViewModel.UserId = user.Id;
+                _context.Add(appointmentWithSymptomListViewModel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", appointment.UserId);
-            return View(appointment);
+            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", appointmentWithSymptomListViewModel.UserId);
+            return View(appointmentWithSymptomListViewModel);
         }
 
         // GET: Appointments/Edit/5

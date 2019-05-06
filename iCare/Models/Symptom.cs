@@ -16,6 +16,8 @@ namespace iCare.Models
         [StringLength(55)]
         public string SymptomDescription { get; set; }
 
+        
+
         [Required]
         [StringLength(100)]
         public string Detail { get; set; }
@@ -27,7 +29,7 @@ namespace iCare.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime DateCreated { get; set; }
 
-        [Display(Name = "Select from Upcoming Appointments")]
+        [Display(Name = "Discuss this Symptom in Upcoming Appointments")]
         public int?  AppointmentId { get; set; }
 
         [Display(Name = "Associated Appointment")]

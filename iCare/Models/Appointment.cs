@@ -1,4 +1,6 @@
-﻿using System;
+﻿using iCare.Data;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -48,16 +50,24 @@ namespace iCare.Models
             }
         }
 
-       
-
         [Required]
         public string UserId { get; set; }
 
         [Required]
         public ApplicationUser User { get; set; }
+        //public MultiSelectList SymptomsToDiscuss { get; set; }
 
-        
-        public virtual ICollection<Symptom> SymptomsToDiscuss { get; set; }
+        /*public Appointment(ApplicationDbContext ctx)
+        {
+
+            List<Symptom> allSymptoms = ctx.Symptoms.OrderBy(s => s.SymptomDescription).ToList();
+            SymptomsToDiscuss = new MultiSelectList(allSymptoms, "SymptomId", "SymptomDescription");
+
+
+        }*/
+
+
+         public virtual ICollection<Symptom> SymptomsToDiscuss { get; set; }
     }
 }
 

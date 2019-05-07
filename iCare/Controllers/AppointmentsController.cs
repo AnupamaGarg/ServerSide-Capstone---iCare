@@ -66,8 +66,12 @@ namespace iCare.Controllers
 
             var vm = new AppointmentWithSymptomListViewModel();
             ApplicationDbContext applicationDbContext = _context;
+            
+            vm.Symptoms = applicationDbContext.Symptoms.ToList();
 
-           return View(vm);
+
+
+            return View(vm);
         }
 
         // POST: Appointments/Create

@@ -10,12 +10,16 @@ namespace iCare.Models.ViewModels
     public class AppointmentWithSymptomListViewModel
     {
         public int Id { get; set; }
-        public int AppointmentID { get; set; }
-        public Appointment Appointment { get; set; }
+        public int AppointmentSymptomID { get; set; }
+        public AppointmentSymptom AppointmentSymptom { get; set; }
+        //public Appointment Appointment { get; set; }
+        //public Symptom Symptom { get; set; }
+
+
 
 
         public List<int> SelectedSymptomIds { get; set; } = new List<int>();
-        public List<Symptom> Symptoms { get; set; }
+        public List<AppointmentSymptom> Symptoms { get; set; }
 
 
 
@@ -29,8 +33,8 @@ namespace iCare.Models.ViewModels
                 }
                 return Symptoms.Select(s => new SelectListItem
                 {
-                    Value = s.SymptomID.ToString(),
-                    Text = s.SymptomDescription
+                    Value = s.symptom.SymptomID.ToString(),
+                    Text = s.symptom.SymptomDescription
                 }).ToList();
             }
         }

@@ -29,11 +29,11 @@ namespace iCare.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime DateCreated { get; set; }
 
-        [Display(Name = "Discuss this Symptom in Upcoming Appointments")]
-        public int?  AppointmentId { get; set; }
+        //[Display(Name = "Discuss this Symptom in Upcoming Appointments")]
+       // public int?  AppointmentId { get; set; }
 
-        [Display(Name = "Associated Appointment")]
-        public Appointment appointment { get; set; }
+        //[Display(Name = "Associated Appointment")]
+       // public Appointment appointment { get; set; }
 
 
 
@@ -42,6 +42,8 @@ namespace iCare.Models
 
         [Required]
         public ApplicationUser User { get; set; }
+
+        public virtual ICollection<AppointmentSymptom> appointmentSymptoms { get; set; }
 
 
     }

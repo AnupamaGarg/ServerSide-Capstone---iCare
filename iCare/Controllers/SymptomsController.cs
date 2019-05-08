@@ -35,7 +35,8 @@ namespace iCare.Controllers
         public async Task<IActionResult> Index()
         {
             var activeUser = await GetCurrentUserAsync();
-            var applicationDbContext = _context.Symptoms.Include(s => s.User).Include(s => s.appointment);
+            //var applicationDbContext = _context.Symptoms.Include(s => s.User).Include(s => s.appointment);
+            var applicationDbContext = _context.Symptoms.Include(s => s.User);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -49,7 +50,7 @@ namespace iCare.Controllers
 
             var symptom = await _context.Symptoms
                 .Include(s => s.User)
-                .Include(s => s.appointment)
+               // .Include(s => s.appointment)
                 .FirstOrDefaultAsync(m => m.SymptomID == id);
             if (symptom == null)
             {
@@ -86,7 +87,7 @@ namespace iCare.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", symptom.UserId);
-            ViewData["AppointmentId"] = new SelectList(_context.Appointments, "AppointmentID", "DoctorAndAppointmentDate", symptom.AppointmentId);
+           // ViewData["AppointmentId"] = new SelectList(_context.Appointments, "AppointmentID", "DoctorAndAppointmentDate", symptom.AppointmentId);
             return View(symptom);
         }
 
@@ -104,7 +105,7 @@ namespace iCare.Controllers
                 return NotFound();
             }
             ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", symptom.UserId);
-            ViewData["AppointmentId"] = new SelectList(_context.Appointments, "AppointmentID", "DoctorAndAppointmentDate", symptom.AppointmentId);
+            //ViewData["AppointmentId"] = new SelectList(_context.Appointments, "AppointmentID", "DoctorAndAppointmentDate", symptom.AppointmentId);
             return View(symptom);
         }
 
@@ -141,7 +142,7 @@ namespace iCare.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", symptom.UserId);
-            ViewData["AppointmentId"] = new SelectList(_context.Appointments, "AppointmentID", "DoctorAndAppointmentDate", symptom.AppointmentId);
+           // ViewData["AppointmentId"] = new SelectList(_context.Appointments, "AppointmentID", "DoctorAndAppointmentDate", symptom.AppointmentId);
             return View(symptom);
         }
 
@@ -155,7 +156,7 @@ namespace iCare.Controllers
 
             var symptom = await _context.Symptoms
                 .Include(s => s.User)
-                .Include(s => s.appointment)
+                //.Include(s => s.appointment)
                 .FirstOrDefaultAsync(m => m.SymptomID == id);
             if (symptom == null)
             {

@@ -10,8 +10,8 @@ using iCare.Data;
 namespace iCare.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190503150645_AddedListForSymptoms")]
-    partial class AddedListForSymptoms
+    [Migration("20190507200751_Updating")]
+    partial class Updating
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -194,9 +194,9 @@ namespace iCare.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "ef5044c3-d75b-4d75-96c5-8fb68b811d2c",
+                            Id = "17ed6a03-1bf1-4a0b-91fb-402ea050d2c4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "19ade2f7-9407-485c-869c-a907ca891fd8",
+                            ConcurrencyStamp = "0510f660-6c91-4f3d-82ef-bcfa54f4fba3",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             FirstName = "admin",
@@ -204,7 +204,7 @@ namespace iCare.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGrvFGt0jxnY2Q/DR4MB9qRb0rBtFS77b1pjd0BVT86CEdsZkIVJwYQTxVtGR2zfjA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECZje0Ng5WjabR/hP6HGnwa29Yj1YBgS+DnwiTqUF5cxxF3f7039WbkMCavyOMG2DA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "2b43d80c-25d9-4820-a424-b53a44531427",
                             TwoFactorEnabled = false,
@@ -229,7 +229,6 @@ namespace iCare.Migrations
                         .HasMaxLength(55);
 
                     b.Property<string>("DoctorsInstructions")
-                        .IsRequired()
                         .HasMaxLength(100);
 
                     b.Property<string>("Phone");
@@ -254,8 +253,69 @@ namespace iCare.Migrations
                             DoctorName = "Dr Dodge",
                             DoctorsInstructions = "Take Medicine",
                             Phone = "111-337-222",
-                            UserId = "ef5044c3-d75b-4d75-96c5-8fb68b811d2c",
+                            UserId = "17ed6a03-1bf1-4a0b-91fb-402ea050d2c4",
                             Visited = false
+                        },
+                        new
+                        {
+                            AppointmentID = 2,
+                            Address = "abc street Franklin TN",
+                            AppointmentDate = new DateTime(2019, 5, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoctorName = "Dr Felch",
+                            DoctorsInstructions = "Put refresh tears eye drops in every hour",
+                            Phone = "111-222-222",
+                            UserId = "17ed6a03-1bf1-4a0b-91fb-402ea050d2c4",
+                            Visited = false
+                        },
+                        new
+                        {
+                            AppointmentID = 3,
+                            Address = "xyz street Nahville TN",
+                            AppointmentDate = new DateTime(2019, 8, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoctorName = "Dr Diana",
+                            DoctorsInstructions = "Advice excersise and walk for 30 min 5 times a week",
+                            Phone = "222-337-222",
+                            UserId = "17ed6a03-1bf1-4a0b-91fb-402ea050d2c4",
+                            Visited = false
+                        });
+                });
+
+            modelBuilder.Entity("iCare.Models.AppointmentSymptom", b =>
+                {
+                    b.Property<int>("AppointmentSymptomID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AppointmentID");
+
+                    b.Property<int>("SymptomID");
+
+                    b.HasKey("AppointmentSymptomID");
+
+                    b.HasIndex("AppointmentID");
+
+                    b.HasIndex("SymptomID");
+
+                    b.ToTable("AppointmentSymptoms");
+
+                    b.HasData(
+                        new
+                        {
+                            AppointmentSymptomID = 1,
+                            AppointmentID = 2,
+                            SymptomID = 2
+                        },
+                        new
+                        {
+                            AppointmentSymptomID = 2,
+                            AppointmentID = 3,
+                            SymptomID = 3
+                        },
+                        new
+                        {
+                            AppointmentSymptomID = 3,
+                            AppointmentID = 1,
+                            SymptomID = 1
                         });
                 });
 
@@ -264,8 +324,6 @@ namespace iCare.Migrations
                     b.Property<int>("SymptomID")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("AppointmentId");
 
                     b.Property<DateTime>("DateCreated")
                         .ValueGeneratedOnAddOrUpdate()
@@ -286,8 +344,6 @@ namespace iCare.Migrations
 
                     b.HasKey("SymptomID");
 
-                    b.HasIndex("AppointmentId");
-
                     b.HasIndex("UserId");
 
                     b.ToTable("Symptoms");
@@ -296,12 +352,29 @@ namespace iCare.Migrations
                         new
                         {
                             SymptomID = 1,
-                            AppointmentId = 1,
                             DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Detail = "In the morning when i woke up was feeling very low in energy and had an head ache",
                             Severity = 6,
                             SymptomDescription = "Feeling Fatique and dizzy",
-                            UserId = "ef5044c3-d75b-4d75-96c5-8fb68b811d2c"
+                            UserId = "17ed6a03-1bf1-4a0b-91fb-402ea050d2c4"
+                        },
+                        new
+                        {
+                            SymptomID = 2,
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Detail = "Having a head ache which goes mild to medium during day time",
+                            Severity = 5,
+                            SymptomDescription = "Head ache",
+                            UserId = "17ed6a03-1bf1-4a0b-91fb-402ea050d2c4"
+                        },
+                        new
+                        {
+                            SymptomID = 3,
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Detail = "having black in lines infront of my vision all day since few months",
+                            Severity = 8,
+                            SymptomDescription = "Black lines infront of eyes",
+                            UserId = "17ed6a03-1bf1-4a0b-91fb-402ea050d2c4"
                         });
                 });
 
@@ -358,12 +431,21 @@ namespace iCare.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("iCare.Models.Symptom", b =>
+            modelBuilder.Entity("iCare.Models.AppointmentSymptom", b =>
                 {
                     b.HasOne("iCare.Models.Appointment", "appointment")
-                        .WithMany("SymptomsToDiscuss")
-                        .HasForeignKey("AppointmentId");
+                        .WithMany("appointmentSymptoms")
+                        .HasForeignKey("AppointmentID")
+                        .OnDelete(DeleteBehavior.Restrict);
 
+                    b.HasOne("iCare.Models.Symptom", "symptom")
+                        .WithMany("appointmentSymptoms")
+                        .HasForeignKey("SymptomID")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("iCare.Models.Symptom", b =>
+                {
                     b.HasOne("iCare.Models.ApplicationUser", "User")
                         .WithMany("Symptoms")
                         .HasForeignKey("UserId")

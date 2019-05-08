@@ -67,7 +67,7 @@ namespace iCare.Controllers
             var vm = new AppointmentWithSymptomListViewModel();
             ApplicationDbContext applicationDbContext = _context;
             
-            vm.Symptoms = applicationDbContext.Symptoms.ToList();
+            vm.Symptoms = applicationDbContext.AppointmentSymptoms.Include(s => s.symptom).ToList();
 
 
 
@@ -79,21 +79,23 @@ namespace iCare.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(AppointmentWithSymptomListViewModel appointmentWithSymptomListViewModel)
+        public async Task<IActionResult> Create(AppointmentWithSymptomListViewModel Appointment)
         {
             ModelState.Remove("User");
-            ModelState.Remove("UserId");
-
+            ModelState.Remove("UserId"); 
+            ModelState.Remove("AppointmentSymptom.appointment.User");
+            ModelState.Remove("AppointmentSymptom.appointment.UserId");
             if (ModelState.IsValid)
             {
                 var user = await _userManager.GetUserAsync(HttpContext.User);
-                appointmentWithSymptomListViewModel.UserId = user.Id;
-                _context.Add(appointmentWithSymptomListViewModel);
+                Appointment.UserId = user.Id;
+                _context.Add(AppointmentSymptom);
+                _context.Add(Appointment);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", appointmentWithSymptomListViewModel.UserId);
-            return View(appointmentWithSymptomListViewModel);
+            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", Appointment.UserId);
+            return View(Appointment);
         }
 
         // GET: Appointments/Edit/5

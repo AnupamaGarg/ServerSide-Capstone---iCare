@@ -14,24 +14,24 @@
         <form asp-action="View">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Appointment.DoctorName" class="control-label"></label>
-                <input asp-for="Appointment.DoctorName" class="form-control" />
-                <span asp-validation-for="Appointment.DoctorName" class="text-danger"></span>
+                <label asp-for="AppointmentSymptom.appointment.DoctorName" class="control-label"></label>
+                <input asp-for="AppointmentSymptom.appointment.DoctorName" class="form-control" />
+                <span asp-validation-for="AppointmentSymptom.appointment.DoctorName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Appointment.Address" class="control-label"></label>
-                <input asp-for="Appointment.Address" class="form-control" />
-                <span asp-validation-for="Appointment.Address" class="text-danger"></span>
+                <label asp-for="AppointmentSymptom.appointment.Address" class="control-label"></label>
+                <input asp-for="AppointmentSymptom.appointment.Address" class="form-control" />
+                <span asp-validation-for="AppointmentSymptom.appointment.Address" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Appointment.Phone" class="control-label"></label>
-                <input asp-for="Appointment.Phone" class="form-control" />
-                <span asp-validation-for="Appointment.Phone" class="text-danger"></span>
+                <label asp-for="AppointmentSymptom.appointment.Phone" class="control-label"></label>
+                <input asp-for="AppointmentSymptom.appointment.Phone" class="form-control" />
+                <span asp-validation-for="AppointmentSymptom.appointment.Phone" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Appointment.AppointmentDate" class="control-label"></label>
-                <input asp-for="Appointment.AppointmentDate" class="form-control" />
-                <span asp-validation-for="Appointment.AppointmentDate" class="text-danger"></span>
+                <label asp-for="AppointmentSymptom.appointment.AppointmentDate" class="control-label"></label>
+                <input asp-for="AppointmentSymptom.appointment.AppointmentDate" class="form-control" />
+                <span asp-validation-for="AppointmentSymptom.appointment.AppointmentDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="SelectedSymptomIds" class="control-label "></label>
@@ -40,13 +40,13 @@
                 <span asp-validation-for="SelectedSymptomIds" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Appointment.DoctorsInstructions" class="control-label"></label>
-                <input asp-for="Appointment.DoctorsInstructions" class="form-control" />
-                <span asp-validation-for="Appointment.DoctorsInstructions" class="text-danger"></span>
+                <label asp-for="AppointmentSymptom.appointment.DoctorsInstructions" class="control-label"></label>
+                <input asp-for="AppointmentSymptom.appointment.DoctorsInstructions" class="form-control" />
+                <span asp-validation-for="AppointmentSymptom.appointment.DoctorsInstructions" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Appointment.Visited" /> @Html.DisplayNameFor(model => model.Appointment.Visited)
+                    <input class="form-check-input" asp-for="AppointmentSymptom.appointment.Visited" /> @Html.DisplayNameFor(model => model.AppointmentSymptom.appointment.Visited)
                 </label>
             </div>
             <div class="form-group">

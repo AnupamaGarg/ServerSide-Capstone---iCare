@@ -24,9 +24,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.DateCreated)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.appointment)
-            </th>
+            </th>*@
             
             <th></th>
         </tr>
@@ -46,9 +46,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.DateCreated)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.appointment.DoctorAndAppointmentDate)
-            </td>
+            </td>*@
             
             <td>
                 <a asp-action="Edit" asp-route-id="@item.SymptomID">Edit</a> |

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace iCare.Migrations
 {
-    public partial class AddedListForSymptoms : Migration
+    public partial class Updating : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -80,7 +80,7 @@ namespace iCare.Migrations
                     Address = table.Column<string>(maxLength: 100, nullable: false),
                     Phone = table.Column<string>(nullable: true),
                     AppointmentDate = table.Column<DateTime>(nullable: false),
-                    DoctorsInstructions = table.Column<string>(maxLength: 100, nullable: false),
+                    DoctorsInstructions = table.Column<string>(maxLength: 100, nullable: true),
                     Visited = table.Column<bool>(nullable: false),
                     UserId = table.Column<string>(nullable: false)
                 },
@@ -190,18 +190,11 @@ namespace iCare.Migrations
                     Detail = table.Column<string>(maxLength: 100, nullable: false),
                     Severity = table.Column<int>(nullable: false),
                     DateCreated = table.Column<DateTime>(nullable: false, defaultValueSql: "GETDATE()"),
-                    AppointmentId = table.Column<int>(nullable: true),
                     UserId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Symptoms", x => x.SymptomID);
-                    table.ForeignKey(
-                        name: "FK_Symptoms_Appointments_AppointmentId",
-                        column: x => x.AppointmentId,
-                        principalTable: "Appointments",
-                        principalColumn: "AppointmentID",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Symptoms_AspNetUsers_UserId",
                         column: x => x.UserId,
@@ -210,25 +203,91 @@ namespace iCare.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "AppointmentSymptoms",
+                columns: table => new
+                {
+                    AppointmentSymptomID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AppointmentID = table.Column<int>(nullable: false),
+                    SymptomID = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppointmentSymptoms", x => x.AppointmentSymptomID);
+                    table.ForeignKey(
+                        name: "FK_AppointmentSymptoms_Appointments_AppointmentID",
+                        column: x => x.AppointmentID,
+                        principalTable: "Appointments",
+                        principalColumn: "AppointmentID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_AppointmentSymptoms_Symptoms_SymptomID",
+                        column: x => x.SymptomID,
+                        principalTable: "Symptoms",
+                        principalColumn: "SymptomID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "ef5044c3-d75b-4d75-96c5-8fb68b811d2c", 0, "19ade2f7-9407-485c-869c-a907ca891fd8", "admin@admin.com", true, "admin", "admin", false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEGrvFGt0jxnY2Q/DR4MB9qRb0rBtFS77b1pjd0BVT86CEdsZkIVJwYQTxVtGR2zfjA==", null, false, "2b43d80c-25d9-4820-a424-b53a44531427", false, "admin@admin.com" });
+                values: new object[] { "17ed6a03-1bf1-4a0b-91fb-402ea050d2c4", 0, "0510f660-6c91-4f3d-82ef-bcfa54f4fba3", "admin@admin.com", true, "admin", "admin", false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAECZje0Ng5WjabR/hP6HGnwa29Yj1YBgS+DnwiTqUF5cxxF3f7039WbkMCavyOMG2DA==", null, false, "2b43d80c-25d9-4820-a424-b53a44531427", false, "admin@admin.com" });
 
             migrationBuilder.InsertData(
                 table: "Appointments",
                 columns: new[] { "AppointmentID", "Address", "AppointmentDate", "DoctorName", "DoctorsInstructions", "Phone", "UserId", "Visited" },
-                values: new object[] { 1, "123 street Franklin TN", new DateTime(2019, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Dr Dodge", "Take Medicine", "111-337-222", "ef5044c3-d75b-4d75-96c5-8fb68b811d2c", false });
+                values: new object[,]
+                {
+                    { 1, "123 street Franklin TN", new DateTime(2019, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Dr Dodge", "Take Medicine", "111-337-222", "17ed6a03-1bf1-4a0b-91fb-402ea050d2c4", false },
+                    { 2, "abc street Franklin TN", new DateTime(2019, 5, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "Dr Felch", "Put refresh tears eye drops in every hour", "111-222-222", "17ed6a03-1bf1-4a0b-91fb-402ea050d2c4", false },
+                    { 3, "xyz street Nahville TN", new DateTime(2019, 8, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Dr Diana", "Advice excersise and walk for 30 min 5 times a week", "222-337-222", "17ed6a03-1bf1-4a0b-91fb-402ea050d2c4", false }
+                });
 
             migrationBuilder.InsertData(
                 table: "Symptoms",
-                columns: new[] { "SymptomID", "AppointmentId", "Detail", "Severity", "SymptomDescription", "UserId" },
-                values: new object[] { 1, 1, "In the morning when i woke up was feeling very low in energy and had an head ache", 6, "Feeling Fatique and dizzy", "ef5044c3-d75b-4d75-96c5-8fb68b811d2c" });
+                columns: new[] { "SymptomID", "Detail", "Severity", "SymptomDescription", "UserId" },
+                values: new object[] { 1, "In the morning when i woke up was feeling very low in energy and had an head ache", 6, "Feeling Fatique and dizzy", "17ed6a03-1bf1-4a0b-91fb-402ea050d2c4" });
+
+            migrationBuilder.InsertData(
+                table: "Symptoms",
+                columns: new[] { "SymptomID", "Detail", "Severity", "SymptomDescription", "UserId" },
+                values: new object[] { 2, "Having a head ache which goes mild to medium during day time", 5, "Head ache", "17ed6a03-1bf1-4a0b-91fb-402ea050d2c4" });
+
+            migrationBuilder.InsertData(
+                table: "Symptoms",
+                columns: new[] { "SymptomID", "Detail", "Severity", "SymptomDescription", "UserId" },
+                values: new object[] { 3, "having black in lines infront of my vision all day since few months", 8, "Black lines infront of eyes", "17ed6a03-1bf1-4a0b-91fb-402ea050d2c4" });
+
+            migrationBuilder.InsertData(
+                table: "AppointmentSymptoms",
+                columns: new[] { "AppointmentSymptomID", "AppointmentID", "SymptomID" },
+                values: new object[] { 3, 1, 1 });
+
+            migrationBuilder.InsertData(
+                table: "AppointmentSymptoms",
+                columns: new[] { "AppointmentSymptomID", "AppointmentID", "SymptomID" },
+                values: new object[] { 1, 2, 2 });
+
+            migrationBuilder.InsertData(
+                table: "AppointmentSymptoms",
+                columns: new[] { "AppointmentSymptomID", "AppointmentID", "SymptomID" },
+                values: new object[] { 2, 3, 3 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Appointments_UserId",
                 table: "Appointments",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppointmentSymptoms_AppointmentID",
+                table: "AppointmentSymptoms",
+                column: "AppointmentID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppointmentSymptoms_SymptomID",
+                table: "AppointmentSymptoms",
+                column: "SymptomID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -270,11 +329,6 @@ namespace iCare.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Symptoms_AppointmentId",
-                table: "Symptoms",
-                column: "AppointmentId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Symptoms_UserId",
                 table: "Symptoms",
                 column: "UserId");
@@ -282,6 +336,9 @@ namespace iCare.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "AppointmentSymptoms");
+
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -298,13 +355,13 @@ namespace iCare.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Appointments");
+
+            migrationBuilder.DropTable(
                 name: "Symptoms");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
-
-            migrationBuilder.DropTable(
-                name: "Appointments");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

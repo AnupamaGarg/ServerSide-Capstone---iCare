@@ -10,10 +10,11 @@ namespace iCare.Models.ViewModels
     public class AppointmentWithSymptomListViewModel
     {
         public int Id { get; set; }
-        public int AppointmentSymptomID { get; set; }
+        //public int AppointmentSymptomID { get; set; }
         public AppointmentSymptom AppointmentSymptom { get; set; }
-        //public Appointment Appointment { get; set; }
-        //public Symptom Symptom { get; set; }
+        public int AppointmentId { get; set; }
+        public Appointment Appointment { get; set; }
+       
 
 
 
@@ -41,7 +42,7 @@ namespace iCare.Models.ViewModels
         [Required]
         public string UserId { get; set; }
 
-        [Required]
+       [Required]
         public ApplicationUser User { get; set; }
     }
 }

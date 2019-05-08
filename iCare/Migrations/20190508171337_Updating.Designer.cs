@@ -10,7 +10,7 @@ using iCare.Data;
 namespace iCare.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190507200751_Updating")]
+    [Migration("20190508171337_Updating")]
     partial class Updating
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -194,9 +194,9 @@ namespace iCare.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "17ed6a03-1bf1-4a0b-91fb-402ea050d2c4",
+                            Id = "89dc9647-1954-425e-a773-d4696235176d",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0510f660-6c91-4f3d-82ef-bcfa54f4fba3",
+                            ConcurrencyStamp = "153b2c9a-6548-4b57-bb04-b4c1e3ae4fa5",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             FirstName = "admin",
@@ -204,7 +204,7 @@ namespace iCare.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAECZje0Ng5WjabR/hP6HGnwa29Yj1YBgS+DnwiTqUF5cxxF3f7039WbkMCavyOMG2DA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFjwaRzet2wL2P0udLImcMDGBQHk5aq1JmhirF7rA+h6oCmbA1NrQvj0q+c/QOCRQA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "2b43d80c-25d9-4820-a424-b53a44531427",
                             TwoFactorEnabled = false,
@@ -253,7 +253,7 @@ namespace iCare.Migrations
                             DoctorName = "Dr Dodge",
                             DoctorsInstructions = "Take Medicine",
                             Phone = "111-337-222",
-                            UserId = "17ed6a03-1bf1-4a0b-91fb-402ea050d2c4",
+                            UserId = "89dc9647-1954-425e-a773-d4696235176d",
                             Visited = false
                         },
                         new
@@ -264,7 +264,7 @@ namespace iCare.Migrations
                             DoctorName = "Dr Felch",
                             DoctorsInstructions = "Put refresh tears eye drops in every hour",
                             Phone = "111-222-222",
-                            UserId = "17ed6a03-1bf1-4a0b-91fb-402ea050d2c4",
+                            UserId = "89dc9647-1954-425e-a773-d4696235176d",
                             Visited = false
                         },
                         new
@@ -275,7 +275,7 @@ namespace iCare.Migrations
                             DoctorName = "Dr Diana",
                             DoctorsInstructions = "Advice excersise and walk for 30 min 5 times a week",
                             Phone = "222-337-222",
-                            UserId = "17ed6a03-1bf1-4a0b-91fb-402ea050d2c4",
+                            UserId = "89dc9647-1954-425e-a773-d4696235176d",
                             Visited = false
                         });
                 });
@@ -356,7 +356,7 @@ namespace iCare.Migrations
                             Detail = "In the morning when i woke up was feeling very low in energy and had an head ache",
                             Severity = 6,
                             SymptomDescription = "Feeling Fatique and dizzy",
-                            UserId = "17ed6a03-1bf1-4a0b-91fb-402ea050d2c4"
+                            UserId = "89dc9647-1954-425e-a773-d4696235176d"
                         },
                         new
                         {
@@ -365,7 +365,7 @@ namespace iCare.Migrations
                             Detail = "Having a head ache which goes mild to medium during day time",
                             Severity = 5,
                             SymptomDescription = "Head ache",
-                            UserId = "17ed6a03-1bf1-4a0b-91fb-402ea050d2c4"
+                            UserId = "89dc9647-1954-425e-a773-d4696235176d"
                         },
                         new
                         {
@@ -374,7 +374,7 @@ namespace iCare.Migrations
                             Detail = "having black in lines infront of my vision all day since few months",
                             Severity = 8,
                             SymptomDescription = "Black lines infront of eyes",
-                            UserId = "17ed6a03-1bf1-4a0b-91fb-402ea050d2c4"
+                            UserId = "89dc9647-1954-425e-a773-d4696235176d"
                         });
                 });
 

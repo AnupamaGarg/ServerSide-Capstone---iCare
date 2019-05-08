@@ -79,23 +79,32 @@ namespace iCare.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(AppointmentWithSymptomListViewModel Appointment)
+        public async Task<IActionResult> Create(AppointmentWithSymptomListViewModel AppointmentViewModel)
         {
             ModelState.Remove("User");
             ModelState.Remove("UserId"); 
+            ModelState.Remove("Appointment.User");
+            ModelState.Remove("Appointment.UserId");
+
+
             ModelState.Remove("AppointmentSymptom.appointment.User");
             ModelState.Remove("AppointmentSymptom.appointment.UserId");
+            
+            //ApplicationUser user = await GetCurrentUserAsync();
             if (ModelState.IsValid)
-            {
+             {
                 var user = await _userManager.GetUserAsync(HttpContext.User);
-                Appointment.UserId = user.Id;
-                _context.Add(AppointmentSymptom);
-                _context.Add(Appointment);
+                AppointmentViewModel.UserId = user.Id;
+                AppointmentViewModel.Appointment.UserId = user.Id;
+
+                _context.Add(AppointmentViewModel.Appointment);
+
+               // _context.Add(Appointment);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", Appointment.UserId);
-            return View(Appointment);
+            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", AppointmentViewModel.UserId);
+            return View(AppointmentViewModel);
         }
 
         // GET: Appointments/Edit/5
@@ -177,6 +186,8 @@ namespace iCare.Controllers
         {
             var appointment = await _context.Appointments.FindAsync(id);
             _context.Appointments.Remove(appointment);
+            var appointmentSymptom = await _context.AppointmentSymptoms.FindAsync(id);
+            _context.AppointmentSymptoms.Remove(appointmentSymptom);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

@@ -19,7 +19,12 @@ namespace iCare.Models
 
         public Appointment appointment { get; set; }
         public Symptom symptom { get; set; }
-        
+
+        [Required]
+        public string UserId { get; set; }
+
+        [Required]
+        public ApplicationUser User { get; set; }
 
     }
 }

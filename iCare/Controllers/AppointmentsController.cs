@@ -64,14 +64,14 @@ namespace iCare.Controllers
         {
             ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id");
 
-            var vm = new AppointmentWithSymptomListViewModel();
+            var ViewModel = new AppointmentWithSymptomListViewModel();
             ApplicationDbContext applicationDbContext = _context;
-            
-            vm.Symptoms = applicationDbContext.AppointmentSymptoms.Include(s => s.symptom).ToList();
+
+            ViewModel.Symptoms = applicationDbContext.Symptoms.ToList();
 
 
 
-            return View(vm);
+            return View(ViewModel);
         }
 
         // POST: Appointments/Create
@@ -82,30 +82,43 @@ namespace iCare.Controllers
         public async Task<IActionResult> Create(AppointmentWithSymptomListViewModel AppointmentViewModel)
         {
             ModelState.Remove("User");
-            ModelState.Remove("UserId"); 
+            ModelState.Remove("UserId");
             ModelState.Remove("Appointment.User");
             ModelState.Remove("Appointment.UserId");
 
 
-            ModelState.Remove("AppointmentSymptom.appointment.User");
-            ModelState.Remove("AppointmentSymptom.appointment.UserId");
-            
+            //ModelState.Remove("AppointmentSymptom.appointment.User");
+            //ModelState.Remove("AppointmentSymptom.appointment.UserId");
+
             //ApplicationUser user = await GetCurrentUserAsync();
             if (ModelState.IsValid)
-             {
+            {
                 var user = await _userManager.GetUserAsync(HttpContext.User);
                 AppointmentViewModel.UserId = user.Id;
                 AppointmentViewModel.Appointment.UserId = user.Id;
 
                 _context.Add(AppointmentViewModel.Appointment);
 
-               // _context.Add(Appointment);
+                foreach (int symptomId in AppointmentViewModel.SelectedSymptomIds)
+                {
+                    AppointmentSymptom newAS = new AppointmentSymptom()
+                    {
+                        AppointmentID = AppointmentViewModel.Appointment.AppointmentID,
+                        SymptomID = symptomId,
+                        UserId = user.Id
+                    };
+                    _context.Add(newAS);
+                }
+
+                // _context.Add(Appointment);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", AppointmentViewModel.UserId);
             return View(AppointmentViewModel);
         }
+
+
 
         // GET: Appointments/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -186,12 +199,13 @@ namespace iCare.Controllers
         {
             var appointmentSymptom = await _context.AppointmentSymptoms
             .SingleOrDefaultAsync(AS => AS.AppointmentID == id);
-            
+
+
 
             var appointment = await _context.Appointments.FindAsync(id);
             _context.AppointmentSymptoms.Remove(appointmentSymptom);
-            //_context.Appointments.Remove(appointment);
-           
+            _context.Appointments.Remove(appointment);
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

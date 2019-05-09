@@ -184,10 +184,14 @@ namespace iCare.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            var appointmentSymptom = await _context.AppointmentSymptoms
+            .SingleOrDefaultAsync(AS => AS.AppointmentID == id);
+            
+
             var appointment = await _context.Appointments.FindAsync(id);
-            _context.Appointments.Remove(appointment);
-            var appointmentSymptom = await _context.AppointmentSymptoms.FindAsync(id);
             _context.AppointmentSymptoms.Remove(appointmentSymptom);
+            //_context.Appointments.Remove(appointment);
+           
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

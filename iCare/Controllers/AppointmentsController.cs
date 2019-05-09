@@ -200,16 +200,12 @@ namespace iCare.Controllers
             var appointmentSymptom = await _context.AppointmentSymptoms
             .Where(AS => AS.AppointmentID == id).ToListAsync();
 
-            foreach ( AppointmentSymptom AS in appointmentSymptom)
+            foreach (AppointmentSymptom AS in appointmentSymptom)
             {
                 _context.AppointmentSymptoms.Remove(AS);
-                 } 
+            } 
                 
-
-
-
-
-                var appointment = await _context.Appointments.FindAsync(id);
+            var appointment = await _context.Appointments.FindAsync(id);
            
             _context.Appointments.Remove(appointment);
 

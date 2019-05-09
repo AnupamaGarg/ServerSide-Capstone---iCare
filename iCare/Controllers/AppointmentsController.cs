@@ -198,12 +198,19 @@ namespace iCare.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var appointmentSymptom = await _context.AppointmentSymptoms
-            .SingleOrDefaultAsync(AS => AS.AppointmentID == id);
+            .Where(AS => AS.AppointmentID == id).ToListAsync();
+
+            foreach ( AppointmentSymptom AS in appointmentSymptom)
+            {
+                _context.AppointmentSymptoms.Remove(AS);
+                 } 
+                
 
 
 
-            var appointment = await _context.Appointments.FindAsync(id);
-            _context.AppointmentSymptoms.Remove(appointmentSymptom);
+
+                var appointment = await _context.Appointments.FindAsync(id);
+           
             _context.Appointments.Remove(appointment);
 
             await _context.SaveChangesAsync();

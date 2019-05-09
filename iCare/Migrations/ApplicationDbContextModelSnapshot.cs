@@ -192,9 +192,9 @@ namespace iCare.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "89dc9647-1954-425e-a773-d4696235176d",
+                            Id = "e24c7ac3-7259-431f-b7aa-2c33f62a658e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "153b2c9a-6548-4b57-bb04-b4c1e3ae4fa5",
+                            ConcurrencyStamp = "86979efd-816c-4402-9415-f343f1d68a71",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             FirstName = "admin",
@@ -202,7 +202,7 @@ namespace iCare.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFjwaRzet2wL2P0udLImcMDGBQHk5aq1JmhirF7rA+h6oCmbA1NrQvj0q+c/QOCRQA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKNZXMlIxhQz9nvSyla571VFat1dRO7xYIM02JZpH2RJhbkcLXKEar8tTjSNMDgyAg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "2b43d80c-25d9-4820-a424-b53a44531427",
                             TwoFactorEnabled = false,
@@ -251,7 +251,7 @@ namespace iCare.Migrations
                             DoctorName = "Dr Dodge",
                             DoctorsInstructions = "Take Medicine",
                             Phone = "111-337-222",
-                            UserId = "89dc9647-1954-425e-a773-d4696235176d",
+                            UserId = "e24c7ac3-7259-431f-b7aa-2c33f62a658e",
                             Visited = false
                         },
                         new
@@ -262,7 +262,7 @@ namespace iCare.Migrations
                             DoctorName = "Dr Felch",
                             DoctorsInstructions = "Put refresh tears eye drops in every hour",
                             Phone = "111-222-222",
-                            UserId = "89dc9647-1954-425e-a773-d4696235176d",
+                            UserId = "e24c7ac3-7259-431f-b7aa-2c33f62a658e",
                             Visited = false
                         },
                         new
@@ -273,7 +273,7 @@ namespace iCare.Migrations
                             DoctorName = "Dr Diana",
                             DoctorsInstructions = "Advice excersise and walk for 30 min 5 times a week",
                             Phone = "222-337-222",
-                            UserId = "89dc9647-1954-425e-a773-d4696235176d",
+                            UserId = "e24c7ac3-7259-431f-b7aa-2c33f62a658e",
                             Visited = false
                         });
                 });
@@ -288,11 +288,16 @@ namespace iCare.Migrations
 
                     b.Property<int>("SymptomID");
 
+                    b.Property<string>("UserId")
+                        .IsRequired();
+
                     b.HasKey("AppointmentSymptomID");
 
                     b.HasIndex("AppointmentID");
 
                     b.HasIndex("SymptomID");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("AppointmentSymptoms");
 
@@ -301,19 +306,22 @@ namespace iCare.Migrations
                         {
                             AppointmentSymptomID = 1,
                             AppointmentID = 2,
-                            SymptomID = 2
+                            SymptomID = 2,
+                            UserId = "e24c7ac3-7259-431f-b7aa-2c33f62a658e"
                         },
                         new
                         {
                             AppointmentSymptomID = 2,
                             AppointmentID = 3,
-                            SymptomID = 3
+                            SymptomID = 3,
+                            UserId = "e24c7ac3-7259-431f-b7aa-2c33f62a658e"
                         },
                         new
                         {
                             AppointmentSymptomID = 3,
                             AppointmentID = 1,
-                            SymptomID = 1
+                            SymptomID = 1,
+                            UserId = "e24c7ac3-7259-431f-b7aa-2c33f62a658e"
                         });
                 });
 
@@ -354,7 +362,7 @@ namespace iCare.Migrations
                             Detail = "In the morning when i woke up was feeling very low in energy and had an head ache",
                             Severity = 6,
                             SymptomDescription = "Feeling Fatique and dizzy",
-                            UserId = "89dc9647-1954-425e-a773-d4696235176d"
+                            UserId = "e24c7ac3-7259-431f-b7aa-2c33f62a658e"
                         },
                         new
                         {
@@ -363,7 +371,7 @@ namespace iCare.Migrations
                             Detail = "Having a head ache which goes mild to medium during day time",
                             Severity = 5,
                             SymptomDescription = "Head ache",
-                            UserId = "89dc9647-1954-425e-a773-d4696235176d"
+                            UserId = "e24c7ac3-7259-431f-b7aa-2c33f62a658e"
                         },
                         new
                         {
@@ -372,7 +380,7 @@ namespace iCare.Migrations
                             Detail = "having black in lines infront of my vision all day since few months",
                             Severity = 8,
                             SymptomDescription = "Black lines infront of eyes",
-                            UserId = "89dc9647-1954-425e-a773-d4696235176d"
+                            UserId = "e24c7ac3-7259-431f-b7aa-2c33f62a658e"
                         });
                 });
 
@@ -440,6 +448,11 @@ namespace iCare.Migrations
                         .WithMany("appointmentSymptoms")
                         .HasForeignKey("SymptomID")
                         .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("iCare.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("iCare.Models.Symptom", b =>

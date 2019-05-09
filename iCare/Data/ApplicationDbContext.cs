@@ -142,6 +142,7 @@ namespace iCare.Data
                 
                 SymptomID = 2,
                 AppointmentID = 2,
+                UserId = user.Id
 
 
             },
@@ -151,6 +152,7 @@ namespace iCare.Data
                
                 SymptomID = 3,
                 AppointmentID = 3,
+                UserId = user.Id
 
 
             },
@@ -160,7 +162,7 @@ namespace iCare.Data
                 
                 SymptomID = 1,
                 AppointmentID = 1,
-
+                UserId = user.Id
 
             });
 

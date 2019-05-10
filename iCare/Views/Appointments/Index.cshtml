@@ -30,9 +30,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Visited)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.User)
-            </th>
+            
             <th></th>
         </tr>
     </thead>
@@ -57,9 +55,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Visited)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.Id)
-            </td>
+           
             <td>
                 <a asp-action="Edit" asp-route-id="@item.AppointmentID">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.AppointmentID">Details</a> |

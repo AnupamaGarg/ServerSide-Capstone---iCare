@@ -112,7 +112,8 @@ namespace iCare.Controllers
         // POST: Symptoms/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+
+       [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("SymptomID,SymptomDescription,Detail,Severity,DateCreated,AppointmentId,UserId")] Symptom symptom)
         {
@@ -121,10 +122,15 @@ namespace iCare.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+        ModelState.Remove("User");
+        ModelState.Remove("UserId");
+
+        if (ModelState.IsValid)
             {
                 try
                 {
+                var user = await GetCurrentUserAsync();
+                    symptom.UserId = user.Id;
                     _context.Update(symptom);
                     await _context.SaveChangesAsync();
                 }
@@ -145,8 +151,9 @@ namespace iCare.Controllers
            // ViewData["AppointmentId"] = new SelectList(_context.Appointments, "AppointmentID", "DoctorAndAppointmentDate", symptom.AppointmentId);
             return View(symptom);
         }
-
-        // GET: Symptoms/Delete/5
+        
+        
+         // GET: Symptoms/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -166,15 +173,24 @@ namespace iCare.Controllers
             return View(symptom);
         }
 
+      
         // POST: Symptoms/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var symptom = await _context.Symptoms.FindAsync(id);
-            _context.Symptoms.Remove(symptom);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+            var appointmentSymptom = await _context.AppointmentSymptoms
+            .Where(AS => AS.SymptomID == id).ToListAsync();
+
+            foreach (AppointmentSymptom AS in appointmentSymptom)
+            {
+                _context.AppointmentSymptoms.Remove(AS);
+            }
+               var symptom = await _context.Symptoms.FindAsync(id);
+               _context.Symptoms.Remove(symptom);
+               await _context.SaveChangesAsync();
+               return RedirectToAction(nameof(Index));
         }
 
         private bool SymptomExists(int id)

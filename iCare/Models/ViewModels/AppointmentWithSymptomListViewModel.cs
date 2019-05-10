@@ -10,16 +10,11 @@ namespace iCare.Models.ViewModels
     public class AppointmentWithSymptomListViewModel
     {
         public int Id { get; set; }
-        //public int AppointmentSymptomID { get; set; }
-       // public AppointmentSymptom AppointmentSymptom { get; set; }
-        //public int AppointmentId { get; set; }
+
         public Appointment Appointment { get; set; }
-       
-
-
-
 
         public List<int> SelectedSymptomIds { get; set; } = new List<int>();
+
         public List<Symptom> Symptoms { get; set; }
 
 

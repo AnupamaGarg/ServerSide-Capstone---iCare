@@ -1,4 +1,6 @@
-﻿@model iCare.Models.Appointment
+﻿@*@model iCare.Models.Appointment*@
+
+@model iCare.Models.ViewModels.AppointmentWithSymptomListViewModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -12,43 +14,45 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="AppointmentID" />
+            <input type="hidden" asp-for="Appointment.AppointmentID" />
             <div class="form-group">
-                <label asp-for="DoctorName" class="control-label"></label>
-                <input asp-for="DoctorName" class="form-control" />
-                <span asp-validation-for="DoctorName" class="text-danger"></span>
+                <label asp-for="Appointment.DoctorName" class="control-label"></label>
+                <input asp-for="Appointment.DoctorName" class="form-control" />
+                <span asp-validation-for="Appointment.DoctorName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
-                <span asp-validation-for="Address" class="text-danger"></span>
+                <label asp-for="Appointment.Address" class="control-label"></label>
+                <input asp-for="Appointment.Address" class="form-control" />
+                <span asp-validation-for="Appointment.Address" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Phone" class="control-label"></label>
-                <input asp-for="Phone" class="form-control" />
-                <span asp-validation-for="Phone" class="text-danger"></span>
+                <label asp-for="Appointment.Phone" class="control-label"></label>
+                <input asp-for="Appointment.Phone" class="form-control" />
+                <span asp-validation-for="Appointment.Phone" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="AppointmentDate" class="control-label"></label>
-                <input asp-for="AppointmentDate" class="form-control" />
-                <span asp-validation-for="AppointmentDate" class="text-danger"></span>
+                <label asp-for="Appointment.AppointmentDate" class="control-label"></label>
+                <input asp-for="Appointment.AppointmentDate" class="form-control" />
+                <span asp-validation-for="Appointment.AppointmentDate" class="text-danger"></span>
             </div>
-            
+
             <div class="form-group">
-                <label asp-for="DoctorsInstructions" class="control-label"></label>
-                <input asp-for="DoctorsInstructions" class="form-control" />
-                <span asp-validation-for="DoctorsInstructions" class="text-danger"></span>
+                <label asp-for="Appointment.DoctorsInstructions" class="control-label"></label>
+                <input asp-for="Appointment.DoctorsInstructions" class="form-control" />
+                <span asp-validation-for="Appointment.DoctorsInstructions" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Visited" /> @Html.DisplayNameFor(model => model.Visited)
+                    <input class="form-check-input" asp-for="Appointment.Visited" /> @Html.DisplayNameFor(model => model.Appointment.Visited)
                 </label>
             </div>
             <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
-                <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId"></select>
-                <span asp-validation-for="UserId" class="text-danger"></span>
-            </div>
+                    <label asp-for="SelectedSymptomIds" class="control-label "></label>
+                    <select multiple asp-for="SelectedSymptomIds" class="form-control"
+                            asp-items="@Model.SymptomOptions"></select>
+                    <span asp-validation-for="SelectedSymptomIds" class="text-danger"></span>
+                </div>
+            
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

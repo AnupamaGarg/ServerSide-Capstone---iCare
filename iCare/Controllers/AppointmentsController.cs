@@ -48,10 +48,15 @@ namespace iCare.Controllers
                 return NotFound();
             }
 
+          
+
             var appointment = await _context.Appointments
                 .Include(a => a.User)
+                .Include(a =>a.appointmentSymptoms)
+                .ThenInclude(AS => AS.symptom)
                 .FirstOrDefaultAsync(m => m.AppointmentID == id);
             if (appointment == null)
+
             {
                 return NotFound();
             }
@@ -128,37 +133,79 @@ namespace iCare.Controllers
                 return NotFound();
             }
 
-            var appointment = await _context.Appointments.FindAsync(id);
-            if (appointment == null)
+            var ViewModel = new AppointmentWithSymptomListViewModel();
+            
+
+            ViewModel.Appointment = await _context.Appointments.FindAsync(id);
+            ViewModel.Symptoms = await _context.Symptoms.ToListAsync();
+
+            
+            if (ViewModel.Appointment == null)
             {
                 return NotFound();
             }
-            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", appointment.UserId);
-            return View(appointment);
+            //ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", ViewModel.Appointment.UserId);
+            return View(ViewModel);
         }
+
+        //var appointment = await _context.Appointments.FindAsync(id)
+        /* var appointment = await _context.Appointments
+             .Include(a => a.User)
+             .Include(a => a.appointmentSymptoms)
+             .ThenInclude(AS => AS.symptom)
+             .FirstOrDefaultAsync(m => m.AppointmentID == id);*/
+
+
+
+
 
         // POST: Appointments/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("AppointmentID,DoctorName,Address,Phone,AppointmentDate,AppointmentReason,DoctorsInstructions,Visited,UserId")] Appointment appointment)
+        public async Task<IActionResult> Edit(int id, AppointmentWithSymptomListViewModel AVM)
         {
-            if (id != appointment.AppointmentID)
+            if (id != AVM.Appointment.AppointmentID)
             {
                 return NotFound();
             }
-
+            ModelState.Remove("User");
+            ModelState.Remove("UserId");
+            ModelState.Remove("Appointment.User");
+            ModelState.Remove("Appointment.UserId");
+            // var user = await GetCurrentUserAsync();
+            //AVM.UserId = user.Id;
             if (ModelState.IsValid)
+
             {
                 try
                 {
-                    _context.Update(appointment);
+                    var user = await GetCurrentUserAsync();
+                    AVM.UserId = user.Id;
+                    AVM.Appointment.UserId = user.Id;
+                    _context.Update(AVM.Appointment);
+                   /* foreach (Symptom S in AVM.Symptoms)
+                    {
+                      _context.Update(S);
+                    }*/
+
+                    foreach (int symptomId in AVM.SelectedSymptomIds)
+                    {
+                        AppointmentSymptom UpdateAS = new AppointmentSymptom()
+                        {
+                            AppointmentID = AVM.Appointment.AppointmentID,
+                            SymptomID = symptomId,
+                            UserId = user.Id
+                        };
+                        _context.Update(UpdateAS);
+                    }
+
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AppointmentExists(appointment.AppointmentID))
+                    if (!AppointmentExists(AVM.Appointment.AppointmentID))
                     {
                         return NotFound();
                     }
@@ -169,8 +216,8 @@ namespace iCare.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", appointment.UserId);
-            return View(appointment);
+            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", AVM.Appointment.UserId);
+            return View(AVM);
         }
 
         // GET: Appointments/Delete/5

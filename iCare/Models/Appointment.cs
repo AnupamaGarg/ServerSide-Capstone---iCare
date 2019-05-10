@@ -28,11 +28,6 @@ namespace iCare.Models
         [DataType(DataType.Date)]
         public DateTime AppointmentDate { get; set; }
 
-        /*[Required]
-        [StringLength(100)]
-        public string AppointmentReason { get; set; }*/
-
-
         [StringLength(100)]
         public string DoctorsInstructions { get; set; }
 

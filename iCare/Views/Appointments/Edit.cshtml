@@ -37,7 +37,7 @@
             </div>
 
             <div class="form-group">
-                <label asp-for="Appointment.DoctorsInstructions" class="control-label"></label>
+                <label asp-for="Appointment.DoctorsInstructions" class="control-label">Add Doctor's Instructions if any</label>
                 <input asp-for="Appointment.DoctorsInstructions" class="form-control" />
                 <span asp-validation-for="Appointment.DoctorsInstructions" class="text-danger"></span>
             </div>
@@ -47,7 +47,7 @@
                 </label>
             </div>
             <div class="form-group">
-                    <label asp-for="SelectedSymptomIds" class="control-label "></label>
+                    <label asp-for="SelectedSymptomIds" class="control-label ">Symptoms To Discuss</label>
                     <select multiple asp-for="SelectedSymptomIds" class="form-control"
                             asp-items="@Model.SymptomOptions"></select>
                     <span asp-validation-for="SelectedSymptomIds" class="text-danger"></span>

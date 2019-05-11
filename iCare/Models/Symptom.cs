@@ -13,15 +13,18 @@ namespace iCare.Models
         public int SymptomID { get; set; }
 
         [Required]
-        [StringLength(55)]
+        [StringLength(50)]
+        [Display(Name = "Symptom Description")]
         public string SymptomDescription { get; set; }
 
         
 
-        [Required]
-        [StringLength(100)]
+        
+        [StringLength(500)]
         public string Detail { get; set; }
 
+        //[MaxLength(10)]
+        //[MinLength(1)]
         public int Severity { get; set; }
 
         [Required]

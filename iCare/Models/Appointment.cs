@@ -16,9 +16,10 @@ namespace iCare.Models
 
         [Required]
         [StringLength(55)]
+        [Display(Name = "Doctor Name")]
         public string DoctorName { get; set; }
 
-        [Required]
+        
         [StringLength(100)]
         public string Address { get; set; }
 
@@ -26,16 +27,18 @@ namespace iCare.Models
 
         [Required]
         [DataType(DataType.Date)]
+        [Display(Name = "Appointment Date")]
         public DateTime AppointmentDate { get; set; }
 
         [StringLength(100)]
+        [Display(Name = "Doctors Instructions")]
         public string DoctorsInstructions { get; set; }
 
-        [Required]
 
+        [Display(Name = "Visited ?")]
         public Boolean Visited { get; set; }
 
-        [Display(Name = "AssociatedAppointment")]
+        [Display(Name = "Associated Appointment")]
         public string DoctorAndAppointmentDate
         {
             get

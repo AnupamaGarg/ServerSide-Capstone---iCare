@@ -23,7 +23,12 @@
                 <span asp-validation-for="Detail" class="text-danger"></span>
             </div>
             <div class="form-group">
+
+
                 <label asp-for="Severity" class="control-label"></label>
+                @*@Html.EditorFor(model => model.Severity,
+               
+               new { Response = new { type = "number", min = "1", max = "10", @class = "form-control" } })*@
                 <input asp-for="Severity" class="form-control" />
                 <span asp-validation-for="Severity" class="text-danger"></span>
             </div>

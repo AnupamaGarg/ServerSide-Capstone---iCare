@@ -13,13 +13,18 @@ namespace iCare.Models
         public int SymptomID { get; set; }
 
         [Required]
-        [StringLength(55)]
+        [StringLength(50)]
+        [Display(Name = "Symptom Description")]
         public string SymptomDescription { get; set; }
 
-        [Required]
-        [StringLength(100)]
+        
+
+        
+        [StringLength(500)]
         public string Detail { get; set; }
 
+        //[MaxLength(10)]
+        //[MinLength(1)]
         public int Severity { get; set; }
 
         [Required]
@@ -27,13 +32,21 @@ namespace iCare.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime DateCreated { get; set; }
 
-        public int?  AppointmentId { get; set; }
+        //[Display(Name = "Discuss this Symptom in Upcoming Appointments")]
+       // public int?  AppointmentId { get; set; }
+
+        //[Display(Name = "Associated Appointment")]
+       // public Appointment appointment { get; set; }
+
+
 
         [Required]
         public string UserId { get; set; }
 
         [Required]
         public ApplicationUser User { get; set; }
+
+        public virtual ICollection<AppointmentSymptom> appointmentSymptoms { get; set; }
 
 
     }

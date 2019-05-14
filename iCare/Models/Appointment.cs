@@ -1,4 +1,6 @@
-﻿using System;
+﻿using iCare.Data;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -14,9 +16,10 @@ namespace iCare.Models
 
         [Required]
         [StringLength(55)]
+        [Display(Name = "Doctor Name")]
         public string DoctorName { get; set; }
 
-        [Required]
+        
         [StringLength(100)]
         public string Address { get; set; }
 
@@ -24,22 +27,25 @@ namespace iCare.Models
 
         [Required]
         [DataType(DataType.Date)]
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public DateTime DateCreated { get; set; }
+        [Display(Name = "Appointment Date")]
+        public DateTime AppointmentDate { get; set; }
 
-        [Required]
         [StringLength(100)]
-        public string AppointmentReason { get; set; }
-
-        [Required]
-        [StringLength(100)]
+        [Display(Name = "Doctors Instructions")]
         public string DoctorsInstructions { get; set; }
 
-        [Required]
-        
+
+        [Display(Name = "Visited ?")]
         public Boolean Visited { get; set; }
 
-
+        [Display(Name = "Associated Appointment")]
+        public string DoctorAndAppointmentDate
+        {
+            get
+            {
+                return $"{DoctorName} on {AppointmentDate}";
+            }
+        }
 
         [Required]
         public string UserId { get; set; }
@@ -47,6 +53,12 @@ namespace iCare.Models
         [Required]
         public ApplicationUser User { get; set; }
 
+        public virtual ICollection<AppointmentSymptom> appointmentSymptoms { get; set; }
     }
 }
 
+
+
+
+
+   

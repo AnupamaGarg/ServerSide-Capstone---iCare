@@ -1,0 +1,64 @@
+﻿@model IEnumerable<iCare.Models.Symptom>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@*<h1>Index</h1>*@
+
+<p>
+    <a asp-action="Create">Add</a>
+</p>
+
+<h2 class="body-content-heading"><i class="material-icons purple md-36"></i>Symptoms</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SymptomDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Detail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Severity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateCreated)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.appointment)
+            </th>*@
+            
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SymptomDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Detail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Severity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateCreated)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.appointment.DoctorAndAppointmentDate)
+            </td>*@
+            
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.SymptomID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.SymptomID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.SymptomID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+

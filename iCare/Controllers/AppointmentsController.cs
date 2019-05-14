@@ -36,7 +36,9 @@ namespace iCare.Controllers
         public async Task<IActionResult> Index()
         {
             var activeUser = await GetCurrentUserAsync();
-            var applicationDbContext = _context.Appointments.Include(a => a.User);
+           // var applicationDbContext = _context.Appointments.Include(a => a.User);
+            //var applicationDbContext = _context.Appointments.Where(a => a.User == activeUser);
+            var applicationDbContext = _context.Appointments.Include(p => p.User).Where(u => u.User == activeUser);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -65,14 +67,15 @@ namespace iCare.Controllers
         }
 
         // GET: Appointments/Create
-        public IActionResult Create()
+        public async  Task<IActionResult> Create()
         {
             ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id");
 
             var ViewModel = new AppointmentWithSymptomListViewModel();
             ApplicationDbContext applicationDbContext = _context;
-
-            ViewModel.Symptoms = applicationDbContext.Symptoms.ToList();
+            var activeUser = await GetCurrentUserAsync();
+            ViewModel.Symptoms = await _context.Symptoms.Where(u => u.UserId == activeUser.Id).ToListAsync();
+           // ViewModel.Symptoms = applicationDbContext.Symptoms.ToList();
 
 
 
@@ -134,11 +137,11 @@ namespace iCare.Controllers
             }
 
             var ViewModel = new AppointmentWithSymptomListViewModel();
-            
 
+            var activeUser = await GetCurrentUserAsync();
             ViewModel.Appointment = await _context.Appointments.FindAsync(id);
-            ViewModel.Symptoms = await _context.Symptoms.ToListAsync();
-
+            ViewModel.Symptoms = await _context.Symptoms.Where(u => u.UserId == activeUser.Id).ToListAsync();
+            ViewModel.SelectedSymptomIds = await _context.AppointmentSymptoms.Where(u => u.AppointmentID == id).Select(u =>u.SymptomID).ToListAsync();
             
             if (ViewModel.Appointment == null)
             {
@@ -183,15 +186,39 @@ namespace iCare.Controllers
                 {
                     var user = await GetCurrentUserAsync();
                     AVM.UserId = user.Id;
+
+                    /*foreach (int symptomId in AVM.SelectedSymptomIds)
+                        //foreach (AppointmentSymptom SymptomID in _context.AppointmentSymptoms)
+                        {
+
+                       AppointmentSymptom appointmentSymptomToRemove = await _context.AppointmentSymptoms.SingleOrDefaultAsync(op => op.AppointmentID == id);
+
+                    // Delete AppointmentSymptom
+                    _context.AppointmentSymptoms.Remove(appointmentSymptomToRemove);
+                    }*/
+
+                    var appointmentSymptom = await _context.AppointmentSymptoms
+                   .Where(AS => AS.AppointmentID == id).ToListAsync();
+
+                    foreach (AppointmentSymptom AS in appointmentSymptom)
+                    {
+                        _context.AppointmentSymptoms.Remove(AS);
+                    }
+                    await _context.SaveChangesAsync();
+
+                    
+                   
+
                     AVM.Appointment.UserId = user.Id;
                     _context.Update(AVM.Appointment);
                    /* foreach (Symptom S in AVM.Symptoms)
                     {
                       _context.Update(S);
                     }*/
-
+                    
                     foreach (int symptomId in AVM.SelectedSymptomIds)
                     {
+
                         AppointmentSymptom UpdateAS = new AppointmentSymptom()
                         {
                             AppointmentID = AVM.Appointment.AppointmentID,

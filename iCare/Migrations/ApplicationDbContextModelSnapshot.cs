@@ -192,9 +192,9 @@ namespace iCare.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "d5fc56a3-d7ad-411d-8219-8e96a87c1245",
+                            Id = "e58fdf97-1576-4228-b621-67a023036252",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9db0b2dc-a6c6-43d3-a3e1-ea4d9d0745cb",
+                            ConcurrencyStamp = "5c6c429c-a0d5-4072-b966-696d8bc04574",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             FirstName = "admin",
@@ -202,7 +202,7 @@ namespace iCare.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGu2wlYzKXDjDlqNHd2VSyMB8QCJkCx/sUPUmvwgLi9VwML8SRnwUI7UBzCD0LTq9Q==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGpMEEWaYWQeuuiTvrPw9vQunPlPIUTXfeSGDgV1bGCIt7uMpqWwgvSR0qz70iswyQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "2b43d80c-25d9-4820-a424-b53a44531427",
                             TwoFactorEnabled = false,
@@ -250,7 +250,7 @@ namespace iCare.Migrations
                             DoctorName = "Dr Dodge",
                             DoctorsInstructions = "Take Medicine",
                             Phone = "111-337-222",
-                            UserId = "d5fc56a3-d7ad-411d-8219-8e96a87c1245",
+                            UserId = "e58fdf97-1576-4228-b621-67a023036252",
                             Visited = false
                         },
                         new
@@ -261,7 +261,7 @@ namespace iCare.Migrations
                             DoctorName = "Dr Felch",
                             DoctorsInstructions = "Put refresh tears eye drops in every hour",
                             Phone = "111-222-222",
-                            UserId = "d5fc56a3-d7ad-411d-8219-8e96a87c1245",
+                            UserId = "e58fdf97-1576-4228-b621-67a023036252",
                             Visited = false
                         },
                         new
@@ -272,7 +272,7 @@ namespace iCare.Migrations
                             DoctorName = "Dr Diana",
                             DoctorsInstructions = "Advice excersise and walk for 30 min 5 times a week",
                             Phone = "222-337-222",
-                            UserId = "d5fc56a3-d7ad-411d-8219-8e96a87c1245",
+                            UserId = "e58fdf97-1576-4228-b621-67a023036252",
                             Visited = false
                         });
                 });
@@ -306,21 +306,21 @@ namespace iCare.Migrations
                             AppointmentSymptomID = 1,
                             AppointmentID = 2,
                             SymptomID = 2,
-                            UserId = "d5fc56a3-d7ad-411d-8219-8e96a87c1245"
+                            UserId = "e58fdf97-1576-4228-b621-67a023036252"
                         },
                         new
                         {
                             AppointmentSymptomID = 2,
                             AppointmentID = 3,
                             SymptomID = 3,
-                            UserId = "d5fc56a3-d7ad-411d-8219-8e96a87c1245"
+                            UserId = "e58fdf97-1576-4228-b621-67a023036252"
                         },
                         new
                         {
                             AppointmentSymptomID = 3,
                             AppointmentID = 1,
                             SymptomID = 1,
-                            UserId = "d5fc56a3-d7ad-411d-8219-8e96a87c1245"
+                            UserId = "e58fdf97-1576-4228-b621-67a023036252"
                         });
                 });
 
@@ -337,8 +337,7 @@ namespace iCare.Migrations
                     b.Property<string>("Detail")
                         .HasMaxLength(500);
 
-                    b.Property<int>("Severity")
-                        .HasMaxLength(10);
+                    b.Property<int>("Severity");
 
                     b.Property<string>("SymptomDescription")
                         .IsRequired()
@@ -361,7 +360,7 @@ namespace iCare.Migrations
                             Detail = "In the morning when i woke up was feeling very low in energy and had an head ache",
                             Severity = 6,
                             SymptomDescription = "Feeling Fatique and dizzy",
-                            UserId = "d5fc56a3-d7ad-411d-8219-8e96a87c1245"
+                            UserId = "e58fdf97-1576-4228-b621-67a023036252"
                         },
                         new
                         {
@@ -370,7 +369,7 @@ namespace iCare.Migrations
                             Detail = "Having a head ache which goes mild to medium during day time",
                             Severity = 5,
                             SymptomDescription = "Head ache",
-                            UserId = "d5fc56a3-d7ad-411d-8219-8e96a87c1245"
+                            UserId = "e58fdf97-1576-4228-b621-67a023036252"
                         },
                         new
                         {
@@ -379,7 +378,7 @@ namespace iCare.Migrations
                             Detail = "having black in lines infront of my vision all day since few months",
                             Severity = 8,
                             SymptomDescription = "Black lines infront of eyes",
-                            UserId = "d5fc56a3-d7ad-411d-8219-8e96a87c1245"
+                            UserId = "e58fdf97-1576-4228-b621-67a023036252"
                         });
                 });
 

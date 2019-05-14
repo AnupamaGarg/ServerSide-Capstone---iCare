@@ -36,7 +36,8 @@ namespace iCare.Controllers
         {
             var activeUser = await GetCurrentUserAsync();
             //var applicationDbContext = _context.Symptoms.Include(s => s.User).Include(s => s.appointment);
-            var applicationDbContext = _context.Symptoms.Include(s => s.User);
+            //var applicationDbContext = _context.Symptoms.Include(s => s.User);
+            var applicationDbContext = _context.Symptoms.Include(p => p.User).Where(u => u.User == activeUser);
             return View(await applicationDbContext.ToListAsync());
         }
 
